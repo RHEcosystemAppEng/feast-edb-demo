@@ -7,14 +7,14 @@ item_id = 'item_id'
 ENTITY_NAME_USER = user_id.split('_')[0]
 ENTITY_NAME_ITEM = item_id.split('_')[0]
 
-user = Entity(
+user_entity = Entity(
     name=ENTITY_NAME_USER,
     join_keys=[user_id],
     value_type=ValueType.INT64, #TODO make sure for type
     description=user_id.replace('_', ''),
 )
 
-item = Entity(
+item_entity = Entity(
     name=ENTITY_NAME_ITEM,
     join_keys=[item_id],
     value_type=ValueType.INT64, #TODO make sure for type

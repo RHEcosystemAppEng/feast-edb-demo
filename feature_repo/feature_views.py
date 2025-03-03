@@ -7,15 +7,14 @@ from feast import (
 from feast.types import Float32
 
 from data_sources import interactions_source, items_source, users_source
-from entities import ENTITY_NAME_ITEM, ENTITY_NAME_USER
+from entities import user_entity, item_entity
 from feast.types import Float32, Int32, Int64, String, Bool
 
 
-# Define feature views
 user_feature_view = FeatureView(
     name="user_features",
-    entities=[ENTITY_NAME_USER],
-    ttl=timedelta(days=365 * 2),  # Features valid for 2 years
+    entities=[user_entity],
+    ttl=timedelta(days=365 * 6),
     schema=[
         Field(name="user_id", dtype=Int64),
         Field(name="age", dtype=Int32),
@@ -28,8 +27,8 @@ user_feature_view = FeatureView(
 
 item_feature_view = FeatureView(
     name="item_features",
-    entities=[ENTITY_NAME_ITEM],
-    ttl=timedelta(days=365),  # Features valid for 1 year
+    entities=[item_entity],
+    ttl=timedelta(days=365 * 5), 
     schema=[
         Field(name="item_id", dtype=Int64),
         Field(name="category", dtype=String),
@@ -45,11 +44,10 @@ item_feature_view = FeatureView(
     online=False
 )
 
-# User-item interaction feature view
 interaction_feature_view = FeatureView(
     name="interactions_features",
-    entities=[ENTITY_NAME_USER, ENTITY_NAME_ITEM],
-    ttl=timedelta(days=90),  # Recent interactions are more relevant
+    entities=[user_entity, item_entity],
+    ttl=timedelta(days=365 * 5),
     schema=[
         Field(name="user_id", dtype=Int64),
         Field(name="item_id", dtype=Int64),

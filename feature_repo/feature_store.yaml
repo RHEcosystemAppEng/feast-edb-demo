@@ -1,33 +1,41 @@
 project: feast_edb_rec_sys
-# provider: local
 # registry:
 #   path: s3://[YOUR BUCKET YOU CREATED]/registry.pb
 #   cache_ttl_seconds: 60
 # registry:
 #   registry_type: sql
 #   path: postgresql://postgres:mysecretpassword@127.0.0.1:55001/feast
-registry:
-  path: registry.pb
-  cache_ttl_seconds: 60
-offline_store:
-  type: postgres
-  host: DB_HOST
-  port: DB_PORT
-  database: DB_NAME
-  db_schema: DB_SCHEMA
-  sslmode: verify-ca
-  sslkey_path: /path/to/client-key.pem
-  sslcert_path: /path/to/client-cert.pem
-  sslrootcert_path: /path/to/server-ca.pem
+# registry:
+#   path: data/registry.db
+#   cache_ttl_seconds: 60
+
+
+registry: data/registry.db
+provider: local
 online_store:
-    type: postgres
-    host: DB_HOST
-    port: DB_PORT
-    database: DB_NAME
-    db_schema: DB_SCHEMA
-    sslmode: verify-ca
-    sslkey_path: /path/to/client-key.pem
-    sslcert_path: /path/to/client-cert.pem
-    sslrootcert_path: /path/to/server-ca.pem
-    vector_enabled: true
-    vector_len: 512
+  type: sqlite
+  path: data/online_store.db
+entity_key_serialization_version: 2
+
+# offline_store:
+#   type: postgres
+#   host: DB_HOST
+#   port: DB_PORT
+#   database: DB_NAME
+#   db_schema: DB_SCHEMA
+#   sslmode: verify-ca
+#   sslkey_path: /path/to/client-key.pem
+#   sslcert_path: /path/to/client-cert.pem
+#   sslrootcert_path: /path/to/server-ca.pem
+# online_store:
+#     type: postgres
+#     host: DB_HOST
+#     port: DB_PORT
+#     database: DB_NAME
+#     db_schema: DB_SCHEMA
+#     sslmode: verify-ca
+#     sslkey_path: /path/to/client-key.pem
+#     sslcert_path: /path/to/client-cert.pem
+#     sslrootcert_path: /path/to/server-ca.pem
+#     vector_enabled: true
+#     vector_len: 512

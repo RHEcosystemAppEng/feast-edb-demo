@@ -7,6 +7,7 @@ data_path = 'data'
 users_source = FileSource(
     file_format=ParquetFormat(),
     path=os.path.join(data_path, 'recommendation_users.parquet'),
+    timestamp_field="signup_date",
     # timestamp_field="signup_date", # I feel like this useless
 )
 interactions_source = FileSource(
@@ -17,5 +18,6 @@ interactions_source = FileSource(
 items_source = FileSource(
     file_format=ParquetFormat(),
     path=os.path.join(data_path, 'recommendation_items.parquet'),
+    timestamp_field="arrival_date",
     # timestamp_field="event_timestamp",
 )
