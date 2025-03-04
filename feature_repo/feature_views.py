@@ -8,7 +8,7 @@ from feast.types import Float32
 
 from data_sources import interactions_source, items_source, users_source, item_embed_push_source, user_embed_push_source
 from entities import user_entity, item_entity
-from feast.types import Float32, Int32, Int64, String, Bool
+from feast.types import Float32, Int32, Int64, String, Bool, Array
 
 
 user_feature_view = FeatureView(
@@ -61,24 +61,23 @@ interaction_feature_view = FeatureView(
 
 item_embedding_view = FeatureView(
     name="item_embedding",
-    entities=[user_entity, item_entity],
+    entities=[item_entity],
     ttl=timedelta(days=365 * 5),
     schema=[
         Field(name="item_id", dtype=Int64),
-        Field(name="embedding", dtype=Float32),
+        Field(name="embedding", dtype=Array(Float32)),
     ],
     source=item_embed_push_source,
     online=True
-    
 )
 
 user_embedding_view = FeatureView(
     name="user_embedding",
-    entities=[user_entity, item_entity],
+    entities=[user_entity],
     ttl=timedelta(days=365 * 5),
     schema=[
         Field(name="user_id", dtype=Int64),
-        Field(name="embedding", dtype=Float32),
+        Field(name="embedding", dtype=Array(Float32)),
     ],
     source=user_embed_push_source,
     online=True

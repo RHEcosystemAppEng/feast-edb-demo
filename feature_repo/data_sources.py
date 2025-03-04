@@ -7,17 +7,17 @@ data_path = 'data'
 
 users_source = FileSource(
     file_format=ParquetFormat(),
-    path=os.path.join(feast_path, data_path, 'recommendation_users.parquet'),
+    path=os.path.join(data_path, 'recommendation_users.parquet'),
     timestamp_field="signup_date",
 )
 interactions_source = FileSource(
     file_format=ParquetFormat(),
-    path=os.path.join(feast_path, data_path, 'recommendation_interactions.parquet'),
+    path=os.path.join(data_path, 'recommendation_interactions.parquet'),
     timestamp_field="timestamp",
 )
 items_source = FileSource(
     file_format=ParquetFormat(),
-    path=os.path.join(feast_path, data_path, 'recommendation_items.parquet'),
+    path=os.path.join(data_path, 'recommendation_items.parquet'),
     timestamp_field="arrival_date",
 )
 
