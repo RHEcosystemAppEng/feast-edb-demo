@@ -6,7 +6,7 @@ from feast import (
 )
 from feast.types import Float32
 
-from data_sources import interactions_source, items_source, users_source
+from data_sources import interactions_source, items_source, users_source, item_embed_push_source, user_embed_push_source
 from entities import user_entity, item_entity
 from feast.types import Float32, Int32, Int64, String, Bool
 
@@ -59,38 +59,27 @@ interaction_feature_view = FeatureView(
     online=False
 )
 
+item_embedding_view = FeatureView(
+    name="item_embedding",
+    entities=[user_entity, item_entity],
+    ttl=timedelta(days=365 * 5),
+    schema=[
+        Field(name="item_id", dtype=Int64),
+        Field(name="embedding", dtype=Float32),
+    ],
+    source=item_embed_push_source,
+    online=True
+    
+)
 
-
-# # A push source is useful if you have upstream systems that transform features (e.g. stream processing jobs)
-# driver_stats_push_source = PushSource(
-#     name="driver_stats_push_source", batch_source=driver_stats,
-# )
-
-
-# user_view = FeatureView(
-#     name=USER_VIEW_NAME,
-#     description=USER_VIEW_DESCRIPTION,
-#     entities=[ENTITY_NAME_USER],
-#     ttl=timedelta(weeks=2),
-#     schema=[
-#         Field(name=FEATURE_1_USER, dtype=Float32), # TODO change dtype
-#         Field(name=FEATURE_2_USER, dtype=Float32), # TODO change dtype
-#     ],
-#     online=False,
-#     source=users_source,
-#     # tags={"production": "True"}
-# )
-
-# item_view = FeatureView(
-#     name=ITEM_VIEW_NAME,
-#     description=ITEM_VIEW_DESCRIPTION,
-#     entities=[ENTITY_NAME_ITEM],
-#     ttl=timedelta(weeks=2),
-#     schema=[
-#         Field(name=FEATURE_1_ITEM, dtype=Float32), # TODO change dtype
-#         Field(name=FEATURE_2_ITEM, dtype=Float32), # TODO change dtype
-#     ],
-#     online=False,
-#     source=SOURCE_NAME,
-#     # tags={"production": "True"}
-# )
+user_embedding_view = FeatureView(
+    name="user_embedding",
+    entities=[user_entity, item_entity],
+    ttl=timedelta(days=365 * 5),
+    schema=[
+        Field(name="user_id", dtype=Int64),
+        Field(name="embedding", dtype=Float32),
+    ],
+    source=user_embed_push_source,
+    online=True
+)

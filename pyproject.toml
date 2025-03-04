@@ -5,5 +5,5 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "feast>=0.46.0",
+    "feast[postgres,sqlite,sqlite-vec]>=0.46.0",
 ]

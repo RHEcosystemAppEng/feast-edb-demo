@@ -24,7 +24,7 @@ def generate_users(num_users):
             'user_id': user_id,
             'age': age,
             'gender': gender,
-            'signup_date': signup_date.strftime('%Y-%m-%d'),
+            'signup_date': signup_date,
             'preferences': ','.join(preferences)
         })
     
@@ -55,7 +55,9 @@ def generate_items(num_items):
             'new_arrival': np.random.random() > 0.8,
             'on_sale': np.random.random() > 0.75
         }
-        
+        arrival_date = datetime(2023, 1, 1) + timedelta(days=np.random.randint(0, 365), 
+                                                      hours=np.random.randint(0, 24),
+                                                      minutes=np.random.randint(0, 60))
         items.append({
             'item_id': item_id,
             'category': category,
@@ -65,7 +67,8 @@ def generate_items(num_items):
             'num_ratings': num_ratings,
             'popular': features['popular'],
             'new_arrival': features['new_arrival'],
-            'on_sale': features['on_sale']
+            'on_sale': features['on_sale'],
+            'arrival_date': arrival_date
         })
     
     return pd.DataFrame(items)
@@ -118,7 +121,7 @@ def generate_interactions(users_df: pd.DataFrame, items_df: pd.DataFrame, num_in
             'interaction_id': len(interactions) + 1,
             'user_id': user_id,
             'item_id': item_id,
-            'timestamp': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'timestamp': timestamp,
             'interaction_type': interaction_type,
             'rating': rating,
             'quantity': quantity
@@ -150,4 +153,5 @@ if __name__ ==  '__main__':
     users.to_parquet('feature_repo/data/recommendation_users.parquet', index=False)
     items.to_parquet('feature_repo/data/recommendation_items.parquet', index=False)
     interactions.to_parquet('feature_repo/data/recommendation_interactions.parquet', index=False)
+    interactions[['item_id', 'user_id']].to_parquet('feature_repo/data/interactions_item_user_ids.parquet', index=False)
     
