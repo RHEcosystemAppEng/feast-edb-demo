@@ -23,12 +23,12 @@ items_source = FileSource(
 items_embed_dummy_source = FileSource(
     file_format=ParquetFormat(),
     path=os.path.join(data_path, 'dummy_item_embed.parquet'),
-    timestamp_field="timestamp",
+    timestamp_field="event_timestamp",
 )
 users_embed_dummy_source = FileSource(
     file_format=ParquetFormat(),
     path=os.path.join(data_path, 'dummy_user_embed.parquet'),
-    timestamp_field="timestamp",
+    timestamp_field="event_timestamp",
 )
 
 item_embed_push_source = PushSource(
