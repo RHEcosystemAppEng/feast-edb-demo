@@ -1,6 +1,6 @@
 from feast import FeatureService
 
-from feature_views import user_feature_view, item_feature_view, interaction_feature_view
+from feature_views import user_feature_view, item_feature_view, interaction_feature_view, item_embedding_view
 
 feature_service = FeatureService(
     name="model_v1",
@@ -21,4 +21,9 @@ user_feature_service = FeatureService(
 interactions_feature_service = FeatureService(
     name="interaction_service",
     features=[interaction_feature_view]
+)
+
+item_embedding_service = FeatureService(
+    name='item_embedding',
+    features=[item_embedding_view]
 )

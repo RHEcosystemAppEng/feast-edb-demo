@@ -155,8 +155,12 @@ if __name__ ==  '__main__':
     interactions.to_parquet('feature_repo/data/recommendation_interactions.parquet', index=False)
     interactions[['item_id', 'user_id']].to_parquet('feature_repo/data/interactions_item_user_ids.parquet', index=False)
     
+    k = 10
+    
     # Create dummy dataframes for push source
     dummy_item_embed_df = pd.DataFrame(columns=['item_id', 'embedding', 'event_timestamp'], data=[[1, [1.,2.], datetime.now() + timedelta(days=365)]]) # used for type casting will be removed automaticly
+    dummy_user_items_df = pd.DataFrame(columns=['user_id', 'top_k_item_ids', 'event_timestamp'], data=[[1, [1, 2], datetime.now() + timedelta(days=365)]]) # used for type casting will be removed automaticly
+    # dummy_user_embed_df = pd.DataFrame(columns=['user_id', 'embedding', 'event_timestamp', 'top_k_items'], data=[[1, [1.,2.], datetime.now() + timedelta(days=365), list(range(k))]]) # used for type casting will be removed automaticly
     dummy_user_embed_df = pd.DataFrame(columns=['user_id', 'embedding', 'event_timestamp'], data=[[1, [1.,2.], datetime.now() + timedelta(days=365)]]) # used for type casting will be removed automaticly
     
     # dummy_item_embed_df = dummy_item_embed_df.astype({'item_id': 'int64', 'event_timestamp': 'datetime64[us]', 'embedding': 'object'})
@@ -164,4 +168,5 @@ if __name__ ==  '__main__':
     
     dummy_item_embed_df.to_parquet('feature_repo/data/dummy_item_embed.parquet', index=False)
     dummy_user_embed_df.to_parquet('feature_repo/data/dummy_user_embed.parquet', index=False)
+    dummy_user_items_df.to_parquet('feature_repo/data/user_items.parquet', index=False)
     

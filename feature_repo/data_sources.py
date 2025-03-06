@@ -30,6 +30,11 @@ users_embed_dummy_source = FileSource(
     path=os.path.join(data_path, 'dummy_user_embed.parquet'),
     timestamp_field="event_timestamp",
 )
+users_items_dummy_source = FileSource(
+    file_format=ParquetFormat(),
+    path=os.path.join(data_path, 'user_items.parquet'),
+    timestamp_field="event_timestamp",
+)
 
 item_embed_push_source = PushSource(
     name='item_embed_push_source',
@@ -39,4 +44,9 @@ item_embed_push_source = PushSource(
 user_embed_push_source = PushSource(
     name='user_embed_push_source',
     batch_source=users_embed_dummy_source    
+)
+
+user_items_push_source = PushSource(
+    name='user_items_push_source',
+    batch_source=users_items_dummy_source    
 )
