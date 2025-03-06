@@ -3,7 +3,8 @@ name = "rec-sys-feast-edb"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10.14"
 dependencies = [
     "feast[postgres,sqlite,sqlite-vec]>=0.46.0",
+    "jupyter>=1.1.1",
 ]
