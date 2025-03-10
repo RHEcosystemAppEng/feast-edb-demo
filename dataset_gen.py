@@ -8,9 +8,9 @@ import argparse
 np.random.seed(42)
 
 # Generate user data
-def generate_users(num_users):
+def generate_users(num_users, from_id = 0):
     users = []
-    for user_id in range(1, num_users + 1):
+    for user_id in range(1 + from_id, num_users + from_id + 1):
         age = np.random.randint(18, 65)
         gender = np.random.choice(['M', 'F', 'Other'], p=[0.48, 0.48, 0.04])
         signup_date = datetime(2023, 1, 1) + timedelta(days=np.random.randint(0, 365))

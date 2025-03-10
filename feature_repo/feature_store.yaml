@@ -12,12 +12,21 @@ project: feast_edb_rec_sys
 
 registry: data/registry.db
 provider: local
+# online_store:
+#   type: sqlite
+#   path: data/online_store.db  
+#   vector_enabled: true
+#   vector_len: 64
+entity_key_serialization_version: 3
 online_store:
-  type: sqlite
-  path: data/online_store.db  
+  type: postgres
+  host: localhost
+  port: 5432
+  database: postgres
+  user: postgres     
+  password: ""       
   vector_enabled: true
   vector_len: 64
-entity_key_serialization_version: 3
 
 # offline_store:
 #   type: postgres
