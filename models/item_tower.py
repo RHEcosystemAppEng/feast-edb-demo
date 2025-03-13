@@ -12,7 +12,7 @@ class ItemTower(nn.Module):
         }
         total_ratio = sum(ratios.values())
         unit_dim = d_model // total_ratio
-        dim_reminder = d_model - (unit_dim * total_ratio)
+        dim_reminder = d_model % total_ratio
 
         # Define the dimention
         dims = {k: v * unit_dim for k, v in ratios.items()}
@@ -33,16 +33,16 @@ class ItemTower(nn.Module):
         self.norms = nn.ModuleDict({k: nn.RMSNorm(dims[k]) for k in self.numeric_keys})
 
     def forward(self,
-                x_category, x_subcategory,
-                x_price, x_avg_rating, x_num_ratings,
-                x_popular, x_new_arrival, x_on_sale, x_arrival_date):
+                category, subcategory,
+                price, avg_rating, num_ratings,
+                popular, new_arrival, on_sale, arrival_date):
         # Process categorical features.
         cat_out = [
-            self.embeds['category'](x_category),
-            self.embeds['subcategory'](x_subcategory)
+            self.embeds['category'](category),
+            self.embeds['subcategory'](subcategory)
         ]
         # Process numeric features using a loop.
-        num_inputs = [x_price, x_avg_rating, x_num_ratings, x_popular, x_new_arrival, x_on_sale, x_arrival_date]
+        num_inputs = [price, avg_rating, num_ratings, popular, new_arrival, on_sale, arrival_date]
         num_out = [self.norms[k](self.encoders[k](x)) for k, x in zip(self.numeric_keys, num_inputs)]
         # Concatenate all feature representations.
         return torch.cat(cat_out + num_out, dim=-1)

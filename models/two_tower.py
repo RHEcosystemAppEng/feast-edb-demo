@@ -4,7 +4,7 @@ from torch import Tensor
 from models.item_tower import ItemTower
 from models.user_tower import UserTower
 
-class TwoTower(nn.Module):
+class TwoTowerModel(nn.Module):
     def __init__(self, item_tower: ItemTower, user_tower: UserTower):
         super().__init__()
         self.item_tower = item_tower

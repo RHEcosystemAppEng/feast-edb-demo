@@ -12,7 +12,7 @@ class UserTower(nn.Module):
             'preferences': 5
         }
         total_ratio = sum(feature_dim_ratio.values())
-        dim_reminder = d_model - (d_model // total_ratio)
+        dim_reminder = d_model % total_ratio
         unit_dim = d_model // total_ratio
         
         # dimention size calculation for each feature
@@ -27,18 +27,18 @@ class UserTower(nn.Module):
         
         # Encoding numeric features
         self.age_encoder = nn.Linear(1, age_dim)
-        self.signup_date_encoder = nn.Linear(1, signup_date_dim)
         self.age_norm = nn.RMSNorm(age_dim)
+        self.signup_date_encoder = nn.Linear(1, signup_date_dim)
         self.signup_date_norm = nn.RMSNorm(signup_date_dim)
         
         
-    def forward(self, x_age: Tensor, x_gender: Tensor, x_signup_date: Tensor, x_preferences: Tensor):
+    def forward(self, age: Tensor, gender: Tensor, signup_date: Tensor, preferences: Tensor):
         # project numerical features
-        x_age = self.age_norm(self.age_norm(x_age))
-        x_signup_date = self.signup_date_norm(self.signup_date_encoder(x_signup_date))
+        age = self.age_norm(self.age_encoder(age))
+        signup_date = self.signup_date_norm(self.signup_date_encoder(signup_date))
         
         # embed categorical features
-        x_gender = self.gender_embed(x_gender)
-        x_preferences = self.preferences_embed(x_preferences)
+        gender = self.gender_embed(gender)
+        preferences = self.preferences_embed(preferences)
         
-        return torch.cat((x_age, x_gender, x_signup_date, x_preferences), dim=-1)
+        return torch.cat((age, gender, signup_date, preferences), dim=-1)
