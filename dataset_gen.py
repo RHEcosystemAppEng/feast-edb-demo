@@ -16,16 +16,14 @@ def generate_users(num_users, from_id = 0):
         signup_date = datetime(2023, 1, 1) + timedelta(days=np.random.randint(0, 365))
         
         # Generate user preferences (categories they tend to like)
-        preferences = np.random.choice(['Electronics', 'Books', 'Clothing', 'Home', 'Sports'], 
-                                      size=np.random.randint(1, 4), 
-                                      replace=False)
+        preferences = np.random.choice(['Electronics', 'Books', 'Clothing', 'Home', 'Sports'])
         
         users.append({
             'user_id': user_id,
             'age': age,
             'gender': gender,
             'signup_date': signup_date,
-            'preferences': ','.join(preferences)
+            'preferences': preferences
         })
     
     return pd.DataFrame(users)
@@ -70,7 +68,6 @@ def generate_items(num_items):
             'on_sale': features['on_sale'],
             'arrival_date': arrival_date
         })
-    
     return pd.DataFrame(items)
 
 # Generate interactions between users and items

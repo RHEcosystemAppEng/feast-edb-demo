@@ -69,7 +69,7 @@ item_embedding_view = FeatureView(
             name="embedding",
             dtype=Array(Float32),
             vector_index=True,
-            vector_search_metric="COSINE",
+            vector_search_metric="cosine",
         ),
     ],
     source=item_embed_push_source,
@@ -86,12 +86,11 @@ user_embedding_view = FeatureView(
             name="embedding",
             dtype=Array(Float32),
             vector_index=True,
-            vector_search_metric="COSINE",
-        ),
-        # Field(name='top_k_items', dtype=Array(Int64), vector_index=False)
+            vector_search_metric="cosine",
+        )
     ],
     source=user_embed_push_source,
-    online=False
+    online=True
 )
 
 user_items_view = FeatureView(
