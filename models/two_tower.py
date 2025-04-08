@@ -10,8 +10,6 @@ class TwoTowerModel(nn.Module):
         self.item_tower = item_tower
         self.user_tower = user_tower
         
-        
-        
     def forward(self, proccesed_items_dict: Tensor, proccesed_users_dict: Tensor, proccesed_real_intercations: Tensor):
         # TODO implement me if needed
         pass
