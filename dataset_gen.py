@@ -106,12 +106,12 @@ def generate_interactions(users_df: pd.DataFrame, items_df: pd.DataFrame, num_in
         
         # Additional data based on interaction type
         if interaction_type == 'rate':
-            rating = np.random.randint(3, 6)  # 1-5 rating
+            rating = float(np.random.randint(3, 6))  # 1-5 rating
         else:
             rating = None
             
         if interaction_type == 'purchase':
-            quantity = np.random.randint(1, 4)
+            quantity = float(np.random.randint(1, 4))
         else:
             quantity = None
         
@@ -139,9 +139,6 @@ def generate_negative_interactions(users_df: pd.DataFrame, items_df: pd.DataFram
     positive_interactions = interactions_df[
         interactions_df['interaction_type'].isin(['cart', 'purchase', 'rate'])
     ]
-    
-    # Create a set of user-item combinations that have positive interactions
-    positive_combinations = set(zip(positive_interactions['user_id'], positive_interactions['item_id']))
     
     # Merge items_df with positive interactions to get category/subcategory/price info
     positive_items = pd.merge(
@@ -202,7 +199,7 @@ def generate_negative_interactions(users_df: pd.DataFrame, items_df: pd.DataFram
             interaction_type = np.random.choice(['view', 'rate'], p=[0.8, 0.2])
             
             # If rate, give a low rating (1-2)
-            rating = np.random.randint(1, 3) if interaction_type == 'rate' else None
+            rating = float(np.random.randint(1, 3)) if interaction_type == 'rate' else None
             
             negative_interactions.append({
                 'interaction_id': len(negative_interactions) + 1,
@@ -211,6 +208,8 @@ def generate_negative_interactions(users_df: pd.DataFrame, items_df: pd.DataFram
                 'timestamp': timestamp,
                 'interaction_type': interaction_type,
                 'rating': rating,
+                'quantity': None
+                
             })
         i += curr_n_samples
     return pd.DataFrame(negative_interactions)
