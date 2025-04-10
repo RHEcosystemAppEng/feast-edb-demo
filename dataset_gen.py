@@ -106,7 +106,7 @@ def generate_interactions(users_df: pd.DataFrame, items_df: pd.DataFrame, num_in
         
         # Additional data based on interaction type
         if interaction_type == 'rate':
-            rating = np.random.randint(1, 6)  # 1-5 rating
+            rating = np.random.randint(3, 6)  # 1-5 rating
         else:
             rating = None
             
