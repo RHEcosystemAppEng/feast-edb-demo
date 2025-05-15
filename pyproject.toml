@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10.14"
 dependencies = [
     "feast[postgres]==0.48.1",
+    "grpcio>=1.71.0",
     "jupyter>=1.1.1",
     "torch>=2.6.0",
 ]
