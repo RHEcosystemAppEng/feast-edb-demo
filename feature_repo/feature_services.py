@@ -22,11 +22,14 @@ interactions_feature_service = FeatureService(
     name="interaction_service",
     features=[interaction_feature_view]
 )
+# stream_interactions_feature_service = FeatureService(
+#     name="stream_interactions_feature_service",
+#     features=[interaction_stream_feature_view]
+# )
 neg_interactions_feature_service = FeatureService(
     name="neg_interaction_service",
     features=[neg_interaction_feature_view]
 )
-
 item_embedding_service = FeatureService(
     name='item_embedding',
     features=[item_embedding_view]
